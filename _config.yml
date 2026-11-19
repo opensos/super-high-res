@@ -1,4 +1,4 @@
-title: High Res
+title: Super High Res
 description: A hi-res, minimal photo blog.
 url: "https://opensos.github.io"        # contoh: https://username.github.io
 baseurl: "/super-high-res"    # contoh: /nama-repo (kosongkan jika guna domain sendiri)
@@ -22,6 +22,8 @@ google_analytics: ""         # ID GA4, contoh: G-XXXXXXXXXX
 nav:
   - title: about
     url: /about/
+  - title: tags
+    url: /tags/
 
 # Pilihan tema (ganti pilihan customize Tumblr)
 highres:
@@ -44,7 +46,7 @@ highres:
   show_album_art: true
 
   center_text_posts: false
-  center_link_captions: true
+  center_link_captions: false
   center_photo_captions: true
   center_quotes: true
   center_chats: true
