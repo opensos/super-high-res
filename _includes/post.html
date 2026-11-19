@@ -1,0 +1,87 @@
+{%- assign o = site.highres -%}
+{%- assign p = include.post -%}
+{%- assign t = p.post_type | default: "text" -%}
+{%- assign has_body = include.body | strip -%}
+<li class="post">
+{% case t %}
+
+{% when "text" %}
+  <div class="regular content">
+    {% if p.title %}<h3>{{ p.title }}</h3>{% endif %}
+    <div class="regular_body">{{ include.body }}</div>
+  </div>
+
+{% when "answer" %}
+  <div class="answer content">
+    <div class="regular_body">
+      <p>{% if p.asker_avatar %}<img src="{% include url.html u=p.asker_avatar %}" alt="{{ p.asker | escape }}" class="asker_portrait"> {% endif %}{{ p.asker }} asked:</p>
+      <blockquote>{{ p.question | markdownify }}</blockquote>
+      {{ include.body }}
+    </div>
+  </div>
+
+{% when "link" %}
+  <div class="link content">
+    <h3><a href="{{ p.link_url }}" title="{{ p.title | escape }}">{{ p.title }}</a></h3>
+    {% if has_body != "" %}<div class="caption">{{ include.body }}</div>{% endif %}
+  </div>
+
+{% when "photo" %}
+  <div class="photo content">
+    <div class="photo_div">
+      {% if p.photo_link %}<a href="{{ p.photo_link }}">{% endif %}<img src="{% include url.html u=p.photo %}" alt="{{ p.photo_alt | escape }}" class="photo_img">{% if p.photo_link %}</a>{% endif %}
+    </div>
+    {% if has_body != "" %}<div class="caption">{{ include.body }}</div>{% endif %}
+  </div>
+
+{% when "photoset" %}
+  <div class="photoset content">
+    {% for src in p.photos %}
+    <div class="photoset_div"><img src="{% include url.html u=src %}" alt="" class="photo_img"></div>
+    {% endfor %}
+    {% if has_body != "" %}<div class="caption">{{ include.body }}</div>{% endif %}
+  </div>
+
+{% when "video" %}
+  <div class="video content">
+    <div class="video_div">{{ p.video }}</div>
+    {% if has_body != "" %}<div class="caption">{{ include.body }}</div>{% endif %}
+  </div>
+
+{% when "audio" %}
+  <div class="audio content">
+    {% if o.show_album_art and p.album_art %}
+    <div class="album_art_div"><img src="{% include url.html u=p.album_art %}" alt="" class="album_art_img"></div>
+    {% endif %}
+    <audio controls src="{% include url.html u=p.audio %}"></audio>
+    {% if has_body != "" %}<div class="caption">{{ include.body }}</div>{% endif %}
+  </div>
+
+{% when "quote" %}
+  <div class="quote content">
+    <div class="quote_body"><q>{{ p.quote }}</q></div>
+    {% if p.source %}<div class="caption">{{ p.source | markdownify }}</div>{% endif %}
+  </div>
+
+{% when "chat" %}
+  <div class="conversation content">
+    {% if p.title %}<h3>{{ p.title }}</h3>{% endif %}
+    {% for l in p.chat %}
+    <div class="conversation_line">{% if l.label %}<span class="conversation_label">{{ l.label }}</span> {% endif %}&ldquo;{{ l.line }}&rdquo;</div>
+    {% endfor %}
+  </div>
+
+{% endcase %}
+
+{% if o.show_tags and p.tags.size > 0 %}
+  <ul class="tags">
+    {% for tag in p.tags %}
+    <li class="tag"><a href="{{ '/tags/' | relative_url }}#{{ tag | slugify }}">#{{ tag }}</a></li>
+    {% endfor %}
+  </ul>
+{% endif %}
+
+{% if o.show_dates and p.date %}
+  <div class="date"><a href="{{ p.url | relative_url }}">{% if o.use_time_ago_for_date %}<time class="timeago" datetime="{{ p.date | date_to_xmlschema }}">{{ p.date | date: "%-d %b %Y" }}</time>{% else %}{{ p.date | date: "%-d %b %Y" }}{% endif %}</a></div>
+{% endif %}
+</li>

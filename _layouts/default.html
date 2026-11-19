@@ -1,0 +1,73 @@
+{%- assign o = site.highres -%}
+<!DOCTYPE html>
+<html lang="{{ site.lang | default: 'en' }}">
+<head>
+  <meta charset="utf-8">
+  <title>{% if page.title %}{{ page.title | escape }} - {% endif %}{{ site.title | escape }}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  {% if site.description %}<meta name="description" content="{{ site.description | escape }}">{% endif %}
+  {% if site.favicon != "" %}<link rel="icon" href="{{ site.favicon | relative_url }}">{% endif %}
+  <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
+  {% feed_meta %}
+  {% include analytics.html %}
+</head>
+<body>
+<div id="container">
+  {% if o.header_image != "" %}
+  <div id="header_image_div">
+    <a href="{{ '/' | relative_url }}"><img src="{{ o.header_image | relative_url }}" id="header_image" alt="{{ site.title | escape }}"></a>
+  </div>
+  {% endif %}
+
+  {% if o.show_blog_title %}
+  <h1 id="blog_title"><a href="{{ '/' | relative_url }}">{{ site.title }}</a></h1>
+  {% endif %}
+
+  {% if o.show_blog_description and site.description %}
+  <h2 id="blog_description">{{ site.description }}</h2>
+  {% endif %}
+
+  {% if site.nav %}
+  <ul id="pages">
+    {% for item in site.nav %}
+    <li class="page"><a href="{{ item.url | relative_url }}">{{ item.title }}</a></li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+
+  {{ content }}
+
+  {% if o.show_footer_text %}
+  <div id="footer">{{ o.footer_text }}</div>
+  {% endif %}
+
+</div>
+
+{% if o.fixed_header_image and o.header_image != "" %}
+<script>
+  (function () {
+    var img = document.getElementById('header_image'), c = document.getElementById('container');
+    if (!img || !c) return;
+    function set() { c.style.paddingTop = (img.offsetHeight + {{ o.vertical_spacing | default: 64 }}) + 'px'; }
+    if (img.complete) set(); else img.addEventListener('load', set);
+  })();
+</script>
+{% endif %}
+
+{% if o.use_time_ago_for_date %}
+<script>
+  (function () {
+    var units = [['year', 31536000], ['month', 2592000], ['day', 86400], ['hour', 3600], ['minute', 60]];
+    document.querySelectorAll('time.timeago').forEach(function (el) {
+      var s = Math.max(0, (Date.now() - new Date(el.getAttribute('datetime')).getTime()) / 1000);
+      for (var i = 0; i < units.length; i++) {
+        var n = Math.floor(s / units[i][1]);
+        if (n >= 1) { el.textContent = n + ' ' + units[i][0] + (n === 1 ? '' : 's') + ' ago'; return; }
+      }
+      el.textContent = 'just now';
+    });
+  })();
+</script>
+{% endif %}
+</body>
+</html>

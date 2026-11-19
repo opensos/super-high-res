@@ -1,0 +1,71 @@
+title: High Res
+description: A hi-res, minimal photo blog.
+url: "https://opensos.github.io"        # contoh: https://username.github.io
+baseurl: "/super-high-res"    # contoh: /nama-repo (kosongkan jika guna domain sendiri)
+lang: en
+
+markdown: kramdown
+permalink: /:year/:month/:day/:title/
+
+plugins:
+  - jekyll-paginate
+  - jekyll-feed
+
+paginate: 5
+paginate_path: "/page:num/"
+
+favicon: ""                  # contoh: /assets/images/favicon.png
+disqus_shortname: ""         # kosongkan untuk matikan komen
+google_analytics: ""         # ID GA4, contoh: G-XXXXXXXXXX
+
+# Pautan halaman di atas tajuk (ganti "pages" Tumblr)
+nav:
+  - title: about
+    url: /about/
+  - title: tags
+    url: /tags/
+
+# Pilihan tema (ganti pilihan customize Tumblr)
+highres:
+  color_text: "#333333"
+  color_link: "#111111"
+  color_link_hover: "#111111"
+  color_tag: "#666666"
+  color_date: "#999999"
+  color_background: "#ffffff"
+  header_image: ""           # contoh: /assets/images/header.png
+  fixed_header_image: false
+
+  show_blog_title: true
+  show_blog_description: false
+  show_headers_in_bold: false
+  show_headers_in_caps: true
+  show_tags: true
+  show_dates: true
+  show_footer_text: false
+  show_album_art: true
+
+  center_text_posts: false
+  center_link_captions: false
+  center_photo_captions: true
+  center_quotes: true
+  center_chats: true
+  center_audio_captions: true
+  center_video_captions: true
+
+  use_time_ago_for_date: false
+  drop_shadows_on_photos: false
+  large_title: false
+  helvetica: false
+  scale_photos_to_window_width: true
+
+  force_video_resize: true
+  forced_video_width: 500
+  column_width: 500
+  vertical_spacing: 64
+  min_image_width: 0
+  max_image_width: 1280
+  font_family: "menlo, 'andale mono', 'courier new', sans-serif"
+  font_size: 11
+  line_height: 155
+  footer_text: '<a href="https://github.com/jstn/high_res">high res theme</a> by <a href="http://jstn.cc/">jstn</a>'

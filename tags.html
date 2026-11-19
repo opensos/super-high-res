@@ -1,0 +1,16 @@
+---
+layout: page
+title: Tags
+permalink: /tags/
+---
+<div class="tag_list">
+{% assign sorted = site.tags | sort %}
+{% for tag in sorted %}
+  <h3 id="{{ tag[0] | slugify }}">#{{ tag[0] }}</h3>
+  <ul>
+    {% for post in tag[1] %}
+    <li><a href="{{ post.url | relative_url }}">{{ post.title | default: post.date | date: "%-d %b %Y" }}</a></li>
+    {% endfor %}
+  </ul>
+{% endfor %}
+</div>

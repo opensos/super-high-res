@@ -1,0 +1,16 @@
+---
+layout: default
+---
+<ul id="posts">
+  {% for post in paginator.posts %}
+    {% include post.html post=post body=post.content %}
+  {% endfor %}
+</ul>
+
+{% if paginator.total_pages > 1 %}
+<div id="pagers">
+  <p>Page {{ paginator.page }} of {{ paginator.total_pages }}</p>
+  {% if paginator.next_page %}<p><a href="{{ paginator.next_page_path | relative_url }}">Next</a></p>{% endif %}
+  {% if paginator.previous_page %}<p><a href="{{ paginator.previous_page_path | relative_url }}">Previous</a></p>{% endif %}
+</div>
+{% endif %}
