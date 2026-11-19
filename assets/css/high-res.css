@@ -54,8 +54,7 @@ img.photo_img { max-width: 100%; }
 img.photo_img { max-width: {{ o.max_image_width }}px; }
 {% endif %}
 
-div.date a { color: {{ o.color_date }}; text-decoration: none; }
-div.date a:hover { text-decoration: underline; }
+div.date { color: {{ o.color_date }}; }
 img.album_art_img { width: 207px; }
 blockquote { border-left: 1px solid #999; margin-left: 1em; padding-left: 1em; margin-bottom: 1em; }
 li.tag { display: inline; margin: 0 1em; }
