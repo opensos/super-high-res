@@ -29,7 +29,7 @@
 {% when "photo" %}
   <div class="photo content">
     <div class="photo_div">
-      {% if p.photo_link %}<a href="{{ p.photo_link }}">{% endif %}<img src="{% include url.html u=p.photo %}" alt="{{ p.photo_alt | escape }}" class="photo_img">{% if p.photo_link %}</a>{% endif %}
+      {% if p.photo_link %}<a href="{{ p.photo_link }}">{% endif %}<img src="{% include url.html u=p.photo %}" alt="{{ p.photo_alt | escape }}" class="photo_img" loading="lazy" decoding="async">{% if p.photo_link %}</a>{% endif %}
     </div>
     {% if has_body != "" %}<div class="caption">{{ include.body }}</div>{% endif %}
   </div>
@@ -37,7 +37,7 @@
 {% when "photoset" %}
   <div class="photoset content">
     {% for src in p.photos %}
-    <div class="photoset_div"><img src="{% include url.html u=src %}" alt="" class="photo_img"></div>
+    <div class="photoset_div"><img src="{% include url.html u=src %}" alt="" class="photo_img" loading="lazy" decoding="async"></div>
     {% endfor %}
     {% if has_body != "" %}<div class="caption">{{ include.body }}</div>{% endif %}
   </div>
