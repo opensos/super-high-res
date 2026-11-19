@@ -82,6 +82,6 @@
 {% endif %}
 
 {% if o.show_dates and p.date %}
-  <div class="date"><a href="{{ p.url | relative_url }}">{% if o.use_time_ago_for_date %}<time class="timeago" datetime="{{ p.date | date_to_xmlschema }}">{{ p.date | date: "%-d %b %Y" }}</time>{% else %}{{ p.date | date: "%-d %b %Y" }}{% endif %}</a></div>
+  <div class="date" style="color: {{ o.color_date }}">{% if o.use_time_ago_for_date %}<time class="timeago" datetime="{{ p.date | date_to_xmlschema }}">{{ p.date | date: "%-d %b %Y" }}</time>{% else %}{{ p.date | date: "%-d %b %Y" }}{% endif %}</div>
 {% endif %}
 </li>
