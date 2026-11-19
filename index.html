@@ -10,7 +10,40 @@ layout: default
 {% if paginator.total_pages > 1 %}
 <div id="pagers">
   <p>Page {{ paginator.page }} of {{ paginator.total_pages }}</p>
-  {% if paginator.next_page %}<p><a href="{{ paginator.next_page_path | relative_url }}">Next</a></p>{% endif %}
+  {% if paginator.next_page %}<p><a rel="next" href="{{ paginator.next_page_path | relative_url }}">Next</a></p>{% endif %}
   {% if paginator.previous_page %}<p><a href="{{ paginator.previous_page_path | relative_url }}">Previous</a></p>{% endif %}
 </div>
+<script>
+(() => {
+  const posts = document.querySelector('#posts');
+  const pager = document.querySelector('#pagers');
+  const next = pager.querySelector('a[rel="next"]');
+  if (!next || !('IntersectionObserver' in window)) return;
+
+  const observer = new IntersectionObserver(async ([entry]) => {
+    if (!entry.isIntersecting) return;
+    observer.unobserve(next);
+
+    try {
+      const response = await fetch(next.href);
+      if (!response.ok) throw new Error('Could not load the next page');
+      const documentPage = new DOMParser().parseFromString(await response.text(), 'text/html');
+      const items = documentPage.querySelectorAll('#posts > li');
+      if (!items.length) throw new Error('No posts found');
+      const following = documentPage.querySelector('#pagers a[rel="next"]');
+      posts.append(...items);
+      if (following) {
+        next.href = new URL(following.getAttribute('href'), response.url);
+        observer.observe(next);
+      } else {
+        pager.remove();
+      }
+    } catch {
+      // Leave the Next link available for manual navigation.
+    }
+  }, { rootMargin: '0px 0px 300px' });
+
+  observer.observe(next);
+})();
+</script>
 {% endif %}
