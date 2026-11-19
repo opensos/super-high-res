@@ -4,6 +4,8 @@
 /* High Res Theme v1.2, ditukar daripada Tumblr kepada Jekyll */
 /* (c) 2011-2012 Justin Ouellette */
 
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap") (max-width: 767px);
+
 /* reset ringkas */
 a,abbr,address,article,aside,audio,b,blockquote,body,caption,cite,code,dd,del,details,dfn,div,dl,dt,em,fieldset,figcaption,figure,footer,form,h1,h2,h3,h4,h5,h6,header,html,i,iframe,img,ins,kbd,label,legend,li,mark,nav,object,ol,p,pre,q,s,samp,section,small,span,strong,sub,summary,sup,table,tbody,td,tfoot,th,thead,time,tr,tt,u,ul,var,video{margin:0;padding:0;border:0;font:inherit;vertical-align:baseline}
 article,aside,details,figcaption,figure,footer,header,nav,section{display:block}
@@ -89,3 +91,62 @@ div#pagers p { margin-bottom: 0.5em; }
 /* halaman tags */
 .tag_list h3 { margin-top: 2em; }
 .tag_list li { margin-bottom: 0.4em; }
+
+@media (max-width: 767px) {
+  html {
+    padding-inline: clamp(16px, 4vw, 24px);
+  }
+
+  html, body {
+    font-family: Inter, system-ui, sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+  }
+
+  #blog_title {
+    margin-top: 28px;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 1.25;
+  }
+
+  ul#pages {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 4px 12px;
+    margin-top: 6px;
+    font-size: 14px;
+  }
+
+  #pages .page { margin: 0; }
+
+  #pages a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding-inline: 8px;
+  }
+
+  li.post { margin-top: 32px; }
+  div#container { margin-bottom: 32px; }
+
+  #container img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  img.photo_img { min-width: 0; }
+
+  div.date {
+    margin-top: 12px;
+    font-size: 12px;
+    color: {{ o.color_tag }};
+  }
+
+  div.caption { margin-top: 12px; }
+  div.content p { margin-bottom: 1em; }
+  div.content p:last-child { margin-bottom: 0; }
+  pre { overflow-x: auto; }
+}
